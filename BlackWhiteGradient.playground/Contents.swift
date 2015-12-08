@@ -1,5 +1,5 @@
 // Dec 7 2015
-// GOAL: Create function to add a black to white gradient on a given UIView
+// GOAL: Create function to add a black and white gradient on a given UIView
 
 import UIKit
 
