@@ -65,6 +65,12 @@ class Day {
         self.year = year
     }
     
+    func incrementDays(days: Int) {
+        for _ in 1...days {
+            self.increment()
+        }
+    }
+    
     func increment() {
         self.dotw = self.dotw.next()
         
@@ -104,27 +110,33 @@ class Day {
         return
     }
     
-    func toString() -> String {
-        return "\(String(self.month.rawValue + 1))/\(String(self.day))/\(String(self.year))"
+    func equals(day: Day) -> Bool{
+        if self.day != day.day {
+            return false
+        } else if self.month != day.month {
+            return false
+        } else if self.year != day.year {
+            return false
+        }
+        
+        return true
     }
 }
 
 var currentDay = Day(dotw: DayOfWeek.Monday, day: 1, month: Month.January, year: 1900)
 var lastDay = Day(dotw: DayOfWeek.Monday, day: 1, month: Month.January, year: 2001)
+currentDay.incrementDays(6) // go to nearest sunday
 
 var sundayCount:Int = 0
-
-
-while (currentDay.toString() != lastDay.toString()) {
+while (!currentDay.equals(lastDay)) {
     if currentDay.dotw == DayOfWeek.Sunday {
         if currentDay.day == 1  && currentDay.year > 1900 {
             sundayCount += 1
         }
     }
 
-    currentDay.increment()
+    currentDay.incrementDays(7)
 }
 
 
 sundayCount
-

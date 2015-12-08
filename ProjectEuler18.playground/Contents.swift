@@ -1,7 +1,7 @@
 // Dec 8 2015
 // GOAL: https://projecteuler.net/problem=18
 
-import UIKit
+import Foundation
 
 let pyramid =
 [[75],
@@ -18,8 +18,8 @@ let pyramid =
 [70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57],
 [91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48,],
 [63, 66, 04, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31],
-[04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23]]
-
+[04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23]
+]
 
 func getLargestPath(row: Int, index: Int, sum: Int) -> Int {
     if row == pyramid.count - 1 {
