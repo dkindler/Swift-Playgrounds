@@ -3,7 +3,7 @@
 
 import Foundation
 
-let pyramid =
+var pyramid =
 [[75],
 [95, 64],
 [17, 47, 82],
@@ -18,17 +18,55 @@ let pyramid =
 [70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57],
 [91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48,],
 [63, 66, 04, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31],
-[04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23]
-]
+[04, 62, 98, 27, 23, 09, 70, 98, 73, 93, 38, 53, 60, 04, 23]]
 
-func getLargestPath(row: Int, index: Int, sum: Int) -> Int {
+
+func bottomUp() -> Int {
+    pyramid = pyramid.reverse()
+
+    for (rowIndex, rowArr) in pyramid.enumerate() {
+        
+        if rowIndex == pyramid.count - 1 {
+            // break if its at top of pyramid
+            break
+        }
+        
+        for (colIndex, colVal) in pyramid[rowIndex].enumerate() {
+            if (colIndex == rowArr.count - 1) {
+                // break if it's on the last col
+                break
+            }
+            
+            var max:Int
+            let a = colVal
+            let b = pyramid[rowIndex][colIndex + 1]
+            
+            if a > b {
+                max = a
+            } else {
+                max = b
+            }
+            
+            pyramid[rowIndex + 1][colIndex] += max
+        }
+        
+        print(pyramid[rowIndex])
+        print("")
+        
+    }
+    
+    return pyramid.reverse()[0][0]
+}
+
+
+func recursive(row: Int, index: Int, sum: Int) -> Int {
     if row == pyramid.count - 1 {
         return sum + pyramid[row][index]
     }
-    
-    let pathA = getLargestPath(row + 1, index: index, sum: sum + pyramid[row][index])
-    let pathB = getLargestPath(row + 1, index: index + 1, sum: sum + pyramid[row][index])
- 
+
+    let pathA = recursive(row + 1, index: index, sum: sum + pyramid[row][index])
+    let pathB = recursive(row + 1, index: index + 1, sum: sum + pyramid[row][index])
+
     if (pathA > pathB) {
         return pathA
     } else {
@@ -36,4 +74,5 @@ func getLargestPath(row: Int, index: Int, sum: Int) -> Int {
     }
 }
 
-getLargestPath(0, index: 0, sum: 0)
+//recursive(0, index: 0, sum: 0)
+bottomUp()
